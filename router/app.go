@@ -2,6 +2,7 @@ package router
 
 import (
 	"fmt"
+	"gintest/services/trip"
 	"github.com/gin-gonic/gin"
 	"net/http"
 )
@@ -33,25 +34,7 @@ func Router() *gin.Engine {
 			}
 			fmt.Println(trip)
 		}) // 添加行程
-		tripRouter.GET("/list", func(context *gin.Context) {
-			var list []Trip
-
-			for i := 0; i < 3; i++ {
-
-				trip := Trip{
-					Uid:  int32(i) + 1,
-					Mode: "来程",
-				}
-
-				list = append(list, trip)
-			}
-			resp := Response{
-				Code:    1,
-				Message: "Success",
-				Data:    list,
-			}
-			context.JSON(200, &resp)
-		}) // 行程列表
+		tripRouter.GET("/list", trip.GetTripList) // 行程列表
 		tripRouter.GET("/index", func(context *gin.Context) {
 
 			list := GetTripList()
