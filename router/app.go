@@ -2,8 +2,11 @@ package router
 
 import (
 	"fmt"
+	_ "gintest/docs"
 	"gintest/services/trip"
 	"github.com/gin-gonic/gin"
+	swaggerFiles "github.com/swaggo/files"
+	ginSwagger "github.com/swaggo/gin-swagger"
 	"net/http"
 )
 
@@ -44,6 +47,7 @@ func Router() *gin.Engine {
 		})
 	}
 
+	r.GET("/swagger/*any", ginSwagger.WrapHandler(swaggerFiles.Handler))
 	return r
 }
 
