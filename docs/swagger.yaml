@@ -1,4 +1,28 @@
 info:
   contact: {}
-paths: {}
+paths:
+  /trip/list:
+    get:
+      description: 获取行程列表
+      parameters:
+      - description: page
+        in: query
+        name: page
+        type: integer
+      - description: size
+        in: query
+        name: size
+        type: integer
+      - description: trip_number
+        in: query
+        name: keyword
+        type: string
+      responses:
+        "200":
+          description: '{"code": 200, "msg":"", "data":""}'
+          schema:
+            type: string
+      summary: 获取行程列表
+      tags:
+      - 行程
 swagger: "2.0"

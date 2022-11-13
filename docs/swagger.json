@@ -3,5 +3,43 @@
     "info": {
         "contact": {}
     },
-    "paths": {}
+    "paths": {
+        "/trip/list": {
+            "get": {
+                "description": "获取行程列表",
+                "tags": [
+                    "行程"
+                ],
+                "summary": "获取行程列表",
+                "parameters": [
+                    {
+                        "type": "integer",
+                        "description": "page",
+                        "name": "page",
+                        "in": "query"
+                    },
+                    {
+                        "type": "integer",
+                        "description": "size",
+                        "name": "size",
+                        "in": "query"
+                    },
+                    {
+                        "type": "string",
+                        "description": "trip_number",
+                        "name": "keyword",
+                        "in": "query"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "{\"code\": 200, \"msg\":\"\", \"data\":\"\"}",
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                }
+            }
+        }
+    }
 }

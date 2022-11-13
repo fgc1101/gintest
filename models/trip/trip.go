@@ -1,7 +1,6 @@
 package trip
 
 import (
-	"fmt"
 	"gintest/models/common"
 	"gorm.io/gorm"
 )
@@ -25,14 +24,8 @@ func (table *Trip) TableName() string {
 	return "as_market_trip"
 }
 
-func GetTripList() {
-	var tripList []*Trip
+func GetTripList(tripNumber string) *gorm.DB {
 
-	common.DB.Table("as_market_trip").Limit(2).Find(&tripList)
-
-	fmt.Printf("%T\n", tripList)
-	for _, v := range tripList {
-		fmt.Printf("trip=> %v\n", v)
-	}
+	return common.DB.Model(new(Trip)).Where("trip_number like ?", "%"+tripNumber+"%")
 
 }
