@@ -7,7 +7,6 @@ import (
 	"github.com/gin-gonic/gin"
 	swaggerFiles "github.com/swaggo/files"
 	ginSwagger "github.com/swaggo/gin-swagger"
-	"net/http"
 )
 
 func Router() *gin.Engine {
@@ -28,51 +27,20 @@ func Router() *gin.Engine {
 	tripRouter := r.Group("/trip")
 	{
 		tripRouter.POST("/add", func(context *gin.Context) {
-
-			var trip Trip
-			err := context.ShouldBindJSON(&trip)
-			if err != nil {
-				fmt.Println(err)
-				return
-			}
-			fmt.Println(trip)
+			// TODO
+			fmt.Println(1)
 		}) // 添加行程
-		tripRouter.GET("/list", trip.GetTripList) // 行程列表
-		tripRouter.GET("/index", func(context *gin.Context) {
+		tripRouter.GET("/list", trip.GetTripList)  // 行程列表
+		tripRouter.GET("/index", trip.GetTripList) // 行程列表
 
-			list := GetTripList()
-			context.HTML(http.StatusOK, "index.html", gin.H{
-				"data": list,
-			})
-		})
 	}
 
 	r.GET("/swagger/*any", ginSwagger.WrapHandler(swaggerFiles.Handler))
 	return r
 }
 
-type Trip struct {
-	Uid  int32  `json:"uid" binding:"required"`
-	Mode string `json:"mode"`
-}
-
 type Response struct {
 	Code    int         `json:"code"`
 	Message string      `json:"message"`
 	Data    interface{} `json:"data"`
-}
-
-func GetTripList() []Trip {
-	var list []Trip
-
-	for i := 0; i < 3; i++ {
-
-		trip := Trip{
-			Uid:  int32(i) + 1,
-			Mode: "来程",
-		}
-
-		list = append(list, trip)
-	}
-	return list
 }
