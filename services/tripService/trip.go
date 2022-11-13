@@ -33,3 +33,5 @@ func IsTransferByTripDetail(details []trip.Detail) int {
 
 	return 0
 }
+
+// 获取行程的住宿列表

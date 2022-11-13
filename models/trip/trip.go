@@ -23,6 +23,7 @@ type Trip struct {
 	UpdatedAt  time.Time   `json:"updated_at" gorm:""`
 	DeletedAt  time.Time   `json:"deleted_at"" gorm:"index;default:null"`
 	Details    []Detail    `json:"details" gorm:"foreignkey:TripId"`
+	Dorm       Dorm        `json:"dorm"`
 }
 
 func (table *Trip) TableName() string {

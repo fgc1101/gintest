@@ -38,6 +38,7 @@ func GetTripList(c *gin.Context) {
 		Offset(offset).
 		Limit(size).
 		Preload("Details").
+		Preload("Dorm").
 		Find(&tripList).Error
 	if err != nil {
 		log.Println(err)
@@ -46,9 +47,21 @@ func GetTripList(c *gin.Context) {
 
 	var listFinal []interface{}
 	for _, v := range tripList {
+
+		var dormRow *trip.Dorm
+
+		// 判断是否有住宿的信息
+		if v.IsDorm == "是" {
+			dorm := trip.Dorm{}
+			dormRow = dorm.GetDormRow(v.Id)
+		} else {
+			dormRow = nil
+		}
+
 		res := responses.TripListResponse{
 			Trip:       v,
 			IsTransfer: tripService.IsTransferByTripDetail(v.Details), // 是否中转
+			Dorm:       dormRow,
 		}
 		listFinal = append(listFinal, res)
 	}
