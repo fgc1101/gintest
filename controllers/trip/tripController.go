@@ -3,6 +3,8 @@ package trip
 import (
 	"gintest/define"
 	"gintest/models/trip"
+	"gintest/responses"
+	"gintest/services/tripService"
 	"github.com/gin-gonic/gin"
 	"log"
 	"strconv"
@@ -25,12 +27,10 @@ func GetTripList(c *gin.Context) {
 	keyword := c.Query("keyword")
 	offset := (page - 1) * size
 	var totalNum int64
-
 	var tripList []*trip.Trip
-
 	where := map[string]interface{}{
 		"trip_number like": "%" + keyword + "%",
-		"admin_id in":      []int{27, 46},
+		"admin_id in":      []int{18535},
 	}
 
 	err := trip.GetTripList(where).
@@ -44,9 +44,18 @@ func GetTripList(c *gin.Context) {
 		return
 	}
 
+	var listFinal []interface{}
+	for _, v := range tripList {
+		res := responses.TripListResponse{
+			Trip:       v,
+			IsTransfer: tripService.IsTransferByTripDetail(v.Details), // 是否中转
+		}
+		listFinal = append(listFinal, res)
+	}
+
 	data := map[string]interface{}{
 		"total": totalNum,
-		"list":  tripList,
+		"list":  listFinal,
 	}
 	c.JSON(200, gin.H{"code": 200, "data": data, "msg": "成功"})
 
