@@ -24,8 +24,8 @@ func (table *Trip) TableName() string {
 	return "as_market_trip"
 }
 
-func GetTripList(tripNumber string) *gorm.DB {
-
-	return common.DB.Model(new(Trip)).Where("trip_number like ?", "%"+tripNumber+"%")
+func GetTripList(where map[string]interface{}) *gorm.DB {
+	cond, vals, _ := common.WhereBuild(where)
+	return common.DB.Model(new(Trip)).Debug().Where(cond, vals...)
 
 }
