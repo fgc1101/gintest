@@ -2,8 +2,8 @@ package router
 
 import (
 	"fmt"
+	"gintest/controllers/trip"
 	_ "gintest/docs"
-	"gintest/services/trip"
 	"github.com/gin-gonic/gin"
 	swaggerFiles "github.com/swaggo/files"
 	ginSwagger "github.com/swaggo/gin-swagger"
