@@ -33,7 +33,12 @@ func GetTripList(c *gin.Context) {
 		"admin_id in":      []int{27, 46},
 	}
 
-	err := trip.GetTripList(where).Count(&totalNum).Offset(offset).Limit(size).Find(&tripList).Error
+	err := trip.GetTripList(where).
+		Count(&totalNum).
+		Offset(offset).
+		Limit(size).
+		Preload("Details").
+		Find(&tripList).Error
 	if err != nil {
 		log.Println(err)
 		return

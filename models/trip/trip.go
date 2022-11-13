@@ -18,6 +18,7 @@ type Trip struct {
 	Attachment interface{} `json:"attachment" gorm:"type:text"`
 	AdminID    int         `json:"admin_id" gorm:"type:int(11)"`
 	TripStatus int         `json:"trip_status" gorm:"type:int(11)"`
+	Details    []Detail    `json:"details" gorm:"foreignkey:TripId"`
 }
 
 func (table *Trip) TableName() string {
@@ -26,6 +27,6 @@ func (table *Trip) TableName() string {
 
 func GetTripList(where map[string]interface{}) *gorm.DB {
 	cond, vals, _ := common.WhereBuild(where)
-	return common.DB.Model(new(Trip)).Debug().Where(cond, vals...)
+	return common.DB.Model(&Trip{}).Debug().Order("created_at desc").Where(cond, vals...)
 
 }
