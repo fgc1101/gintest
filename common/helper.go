@@ -12,7 +12,7 @@ import (
 // GetConfig
 // 获取配置文件
 func GetConfig() *config.Config {
-	yamlFile, err := ioutil.ReadFile("../config/application.yaml")
+	yamlFile, err := ioutil.ReadFile("./config/application.yaml")
 	if err != nil {
 		fmt.Println(err.Error())
 	}

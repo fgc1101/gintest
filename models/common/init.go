@@ -11,9 +11,7 @@ import (
 var DB = Init()
 
 func Init() *gorm.DB {
-
 	_config := common.GetConfig()
-
 	dsn := fmt.Sprintf("%s:%s@tcp(%s:%d)/%s?charset=%s&parseTime=True&loc=Local",
 		_config.DataSource.Username,
 		_config.DataSource.Password,
