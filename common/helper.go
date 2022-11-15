@@ -3,6 +3,7 @@ package common
 import (
 	"fmt"
 	"gintest/config"
+	uuid "github.com/satori/go.uuid"
 	"gopkg.in/gomail.v2"
 	"gopkg.in/yaml.v2"
 	"io/ioutil"
@@ -12,7 +13,7 @@ import (
 // GetConfig
 // 获取配置文件
 func GetConfig() *config.Config {
-	yamlFile, err := ioutil.ReadFile("./config/application.yaml")
+	yamlFile, err := ioutil.ReadFile("../config/application.yaml")
 	if err != nil {
 		fmt.Println(err.Error())
 	}
@@ -59,4 +60,10 @@ func SendEmail(ToUserEmail string, code string) {
 	}
 
 	log.Println("邮件发送成功……")
+}
+
+// GetUUID
+// 生成一个唯一的UUID
+func GetUUID() uuid.UUID {
+	return uuid.Must(uuid.NewV4(), nil)
 }
