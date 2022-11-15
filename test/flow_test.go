@@ -2,13 +2,22 @@ package test
 
 import (
 	"fmt"
+	"gintest/common"
 	"testing"
 )
 
 func TestFlow(t *testing.T) {
-	fmt.Println("测试develop")
+	_config := common.GetConfig()
 
-	fmt.Println("feature 分支")
+	fmt.Println(_config.DataSource)
 
-	fmt.Println("feature 分支 commit 2")
+	dsn := fmt.Sprintf("%s:%s@tcp(%s:%d)/%s?charset=%s&parseTime=True&loc=Local",
+		_config.DataSource.Username,
+		_config.DataSource.Password,
+		_config.DataSource.Host,
+		_config.DataSource.Port,
+		_config.DataSource.Database,
+		_config.DataSource.Charset)
+
+	fmt.Printf(dsn)
 }
